@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 
 @Injectable()
-export class ParseIntPipe implements PipeTransform {
+export class ParseIntCustomPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
     const finalValue = parseInt(value, 10);
     if (isNaN(finalValue)) {
