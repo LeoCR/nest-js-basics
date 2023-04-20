@@ -9,13 +9,13 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(username, pass) {
-    const user = await this.usersService.findOne(username);
+  async signIn(username: string, pass: string) {
+    const user = await this.usersService.findByEmail(username);
     if (user?.password !== pass) {
       // Don't do this in your real app! instead use a library like bcrypt, with a salted one-way hash algorithm.
       throw new UnauthorizedException();
     }
-    const payload = { username: user.username, sub: user.userId };
+    const payload = { username: user.email, sub: user.id };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
